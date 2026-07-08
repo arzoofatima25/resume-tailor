@@ -100,7 +100,7 @@ The frontend dev server proxies `/api` to `http://localhost:5000` (see
 | `PORT` | API port (default `5000`) |
 | `CLIENT_ORIGIN` | Allowed CORS origin, e.g. `http://localhost:5173` |
 | `GEMINI_API_KEY` | **Required.** Your Gemini API key — never commit this |
-| `GEMINI_MODEL` | Defaults to `gemini-1.5-flash` |
+| `GEMINI_MODEL` | Defaults to `gemini-3.5-flash` |
 | `MAX_UPLOAD_MB` | Max resume upload size in MB (default `5`) |
 
 ## Authentication (Firebase)
