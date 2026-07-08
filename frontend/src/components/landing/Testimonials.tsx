@@ -3,9 +3,21 @@ import { Card } from "@/components/ui/Card";
 
 // Placeholder testimonials — swap with real customer quotes before launch.
 const TESTIMONIALS = [
-  { name: "Placeholder — Job Seeker", role: "Software Engineer", quote: "Placeholder testimonial text goes here once real customer feedback is collected." },
-  { name: "Placeholder — Job Seeker", role: "Product Manager", quote: "Placeholder testimonial text goes here once real customer feedback is collected." },
-  { name: "Placeholder — Job Seeker", role: "Data Analyst", quote: "Placeholder testimonial text goes here once real customer feedback is collected." },
+  {
+    name: "Resume Match Analysis",
+    role: "ATS-ready insights",
+    quote: "Compare your resume with a job description and get a clear match score with improvement areas.",
+  },
+  {
+    name: "Missing Skills Detection",
+    role: "Skill gap finder",
+    quote: "Find important skills from the job post that are missing or weak in your resume.",
+  },
+  {
+    name: "Cover Letter Generator",
+    role: "Tailored applications",
+    quote: "Generate a personalized cover letter based on your resume and the target job description.",
+  },
 ];
 
 export function Testimonials() {
@@ -13,8 +25,8 @@ export function Testimonials() {
     <section className="bg-slate-50 dark:bg-white/[0.02] py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="font-display text-3xl font-bold sm:text-4xl">What job seekers are saying</h2>
-          <p className="mt-3 text-slate-600 dark:text-slate-400">Placeholder section — replace with real testimonials.</p>
+          <h2 className="font-display text-3xl font-bold sm:text-4xl">Built for faster job applications</h2>
+          <p className="mt-3 text-slate-600 dark:text-slate-400">Tailorly helps candidates improve resume-job matching, identify missing skills, and generate tailored cover letters.</p>
         </div>
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {TESTIMONIALS.map((t, i) => (
