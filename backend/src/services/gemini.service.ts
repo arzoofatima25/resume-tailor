@@ -147,6 +147,7 @@ export async function analyzeResumeWithGemini(
       const validated = resumeAnalysisSchema.parse(parsed);
       return applyOptionDefaults(validated, options);
     } catch (err) {
+      console.error("Gemini analysis failed:", err);
       lastError = err;
     }
   }
