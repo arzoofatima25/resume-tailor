@@ -89,7 +89,23 @@ ${jobDescription}
 
 Analyze the resume against the job description and return the JSON object now.`;
 }
+function parseGeminiJson(raw: string) {
+  const cleaned = raw
+    .trim()
+    .replace(/^```json\s*/i, "")
+    .replace(/^```\s*/i, "")
+    .replace(/```$/i, "")
+    .trim();
 
+  const start = cleaned.indexOf("{");
+  const end = cleaned.lastIndexOf("}");
+
+  if (start === -1 || end === -1 || end <= start) {
+    throw new Error("Gemini response did not contain a JSON object");
+  }
+
+  return JSON.parse(cleaned.slice(start, end + 1));
+}
 /**
  * Calls Gemini with a strict JSON response schema and validates the
  * result again on our side with Zod before it ever reaches the client.
@@ -109,20 +125,25 @@ export async function analyzeResumeWithGemini(
     model: modelName,
     systemInstruction: buildSystemInstruction(options),
     generationConfig: {
-      responseMimeType: "application/json",
-      responseSchema: responseSchema as never,
-      temperature: 0.4,
-    },
+  responseMimeType: "application/json",
+  responseSchema: responseSchema as never,
+  temperature: 0.2,
+  maxOutputTokens: 2048,
+},
   });
 
-  const prompt = buildUserPrompt(resumeText, jobDescription, candidateName);
+  const prompt = buildUserPrompt(
+  resumeText.slice(0, 12000),
+  jobDescription.slice(0, 6000),
+  candidateName
+);
 
   let lastError: unknown;
-  for (let attempt = 0; attempt < 2; attempt++) {
+  for (let attempt = 0; attempt < 1; attempt++) {
     try {
       const result = await model.generateContent(prompt);
       const raw = result.response.text();
-      const parsed = JSON.parse(raw);
+      const parsed = parseGeminiJson(raw);
       const validated = resumeAnalysisSchema.parse(parsed);
       return applyOptionDefaults(validated, options);
     } catch (err) {
